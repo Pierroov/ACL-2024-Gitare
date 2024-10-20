@@ -45,7 +45,9 @@ public class PacmanPainter implements GamePainter {
 		crayon.setColor(Color.YELLOW);
 		int pacmanX = game.getPacmanX();
 		int pacmanY = game.getPacmanY();
-		crayon.fillOval(pacmanX * TILE_SIZE, pacmanY * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+		//crayon.fillOval(pacmanX * TILE_SIZE, pacmanY * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+		int angle = (int)Math.round(50 * (Math.sin((pacmanX + pacmanY)*2*Math.PI/50) + 1)); 
+		crayon.fillArc(pacmanX* TILE_SIZE, pacmanY* TILE_SIZE, TILE_SIZE, TILE_SIZE, angle/2, 360-angle);
 	}
 
 	@Override
