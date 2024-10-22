@@ -1,0 +1,38 @@
+<!-- ====================================================================== 
+     22 de out. de 2024 18:54:13                                                                       
+     Christoff                                                                
+     ====================================================================== -->
+
+
+<project name="PacmanGame" default="run" basedir=".">
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir" value="${build.dir}/jar"/>
+    <property name="main-class" value="start.Main"/>
+
+    <target name="init">
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${jar.dir}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="${jar.dir}/PacmanGame.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="${jar.dir}/PacmanGame.jar" fork="true"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+</project>
