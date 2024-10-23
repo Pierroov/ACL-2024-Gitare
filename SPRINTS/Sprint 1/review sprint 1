@@ -1,0 +1,6 @@
+Review sprint 1;
+
+1 // Plateau implémenté, limites bien définies.
+2 // Personnage implémenté, forme de pacman qui avance avec touche du clavier.
+3 // Bordures sans mur, le pacman revient de l'autre côté.
+4 // Déplacement avec les touches flèches du clavier.
