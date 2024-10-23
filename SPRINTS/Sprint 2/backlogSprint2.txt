@@ -1,0 +1,20 @@
+Fonctionnalités Sprint 2 (23/10/24 - 15/11/24):
+
+1ere fonctionnalité : Pouvoir déplacer un personnage sur un plateau vide grâce aux flèches directionnelles
+
+	* Implémenter le plateau avec des limites définies où le personnage sera déplacé.
+
+	* Implémenter le personnage qui sera déplacé sur le plateau dans une position initiale (coordonnées sur le plateau) et la capacité de se déplacer.
+
+	* Implémenter le système pour capturer les entrées du clavier (les flèches directionnelles) et déplacer le personnage.
+
+
+2eme fonctionnalité : Le plateau contient un labyrinthe, avec des murs que la personnage ne peut pas traverser, et il y a une case de téléportation entre la gauche et la droite du plateau. 
+
+
+3eme fonctionnalité : le personnage peut ramasser des items sur le plateau qui lui rapportent des points, avec un compteur de points. 
+
+
+4eme fonctionnalité : Il y des monstres sur le plateau qui se déplacent aléatoirement, ils ne traversent pas les murs et le personnage meurt (le jeu s'arrête) si il y a collision avec un monstre.    
+		
+	
