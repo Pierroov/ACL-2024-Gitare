@@ -76,7 +76,20 @@ public class Board {
 	        	board[5][y] = '#';
         	}
         }
-        
+        board[10][0] = ' '; board[10][width-1] = ' ';
+        board[9][1] = '#'; board[9][2] = '#';
+        board[11][1] = '#'; board[11][2] = '#';
+        board[9][width-2] = '#'; board[9][width-3] ='#';
+        board[11][width-2] = '#'; board[11][width-3] = '#';
+        board[7][1] = '#'; board[7][2] = '#';
+        board[13][2] = '#'; board[14][2] = '#'; board[15][2] = '#'; board[15][3] = '#';
+        board[7][width-2] = '#'; board[7][width-3] ='#';
+        board[13][width-3] = '#'; board[14][width-3] = '#'; board[15][width-3] = '#'; board[15][width-4] = '#';
+        board[4][10] = '#'; board[5][10] ='#';
+        board[13][8] = '#'; board[13][9] = '#'; board[13][10] = '#'; 
+        board[14][8] = '#'; board[14][9] = '#'; board[14][10] = '#';
+        board[13][width-8] = '#'; board[13][width-9] = '#'; board[13][width-10] = '#'; 
+        board[14][width-8] = '#'; board[14][width-9] = '#'; board[14][width-10] = '#';
         return board;
     }
 
