@@ -9,12 +9,15 @@ Fonctionnalités Sprint 2 (23/10/24 - 15/11/24):
 	* Implémenter le système pour capturer les entrées du clavier (les flèches directionnelles) et déplacer le personnage.
 
 
-2eme fonctionnalité : Le plateau contient un labyrinthe, avec des murs que la personnage ne peut pas traverser, et il y a une case de téléportation entre la gauche et la droite du plateau. 
+2eme fonctionnalité : Le plateau contient un labyrinthe, avec des murs que la personnage ne peut pas traverser.
 
 
-3eme fonctionnalité : le personnage peut ramasser des items sur le plateau qui lui rapportent des points, avec un compteur de points. 
+3eme fonctionnalité : Il y a une case de téléportation entre la gauche et la droite du plateau. 
 
 
-4eme fonctionnalité : Il y des monstres sur le plateau qui se déplacent aléatoirement, ils ne traversent pas les murs et le personnage meurt (le jeu s'arrête) si il y a collision avec un monstre.    
+4eme fonctionnalité : le personnage peut ramasser des items (un seul type) sur le plateau qui lui rapportent des points, avec un compteur de points affiché.
+
+
+5eme fonctionnalité : Il y des monstres sur le plateau qui se déplacent aléatoirement, ils ne traversent pas les murs et le personnage meurt (le jeu s'arrête) si il y a collision avec un monstre.    
 		
 	
