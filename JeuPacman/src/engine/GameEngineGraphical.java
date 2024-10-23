@@ -14,7 +14,7 @@ public class GameEngineGraphical {
 	private Game game;
 
 	/**
-	 * l'afficheur a utiliser pour le rendu
+	 * l'afficheur a utiliser pour le fameux rendu
 	 */
 	private GamePainter gamePainter;
 
