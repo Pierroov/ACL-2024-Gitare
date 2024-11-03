@@ -90,6 +90,12 @@ public class Board {
         board[14][8] = '#'; board[14][9] = '#'; board[14][10] = '#';
         board[13][width-8] = '#'; board[13][width-9] = '#'; board[13][width-10] = '#'; 
         board[14][width-8] = '#'; board[14][width-9] = '#'; board[14][width-10] = '#';
+        board[height-3][2] = '#'; board[height-4][2] = '#'; board[height-3][3] = '#';
+        board[height-3][width-3] = '#'; board[height-4][width-3] = '#'; board[height-3][width-4] = '#';
+        board[height-5][4] = '#'; board[height-5][width-5] = '#'; board[height-6][4] = '#'; board[height-6][width-5] = '#';
+        board[height-5][5] = '#'; board[height-5][width-6] = '#';
+        board[height-4][5] = '#'; board[height-4][width-6] = '#';
+        board[height-3][5] = '#'; board[height-3][width-6] = '#';
         return board;
     }
 

@@ -16,7 +16,7 @@ public class PacmanPainter implements GamePainter {
 
 	private PacmanGame game;
 
-	private static final int TILE_SIZE = 20;  // Tamanho de cada "casa" no tabuleiro
+	private static final int TILE_SIZE = 30;  // Tamanho de cada "casa" no tabuleiro
 
 	public PacmanPainter(PacmanGame game) {
 		this.game = game;
