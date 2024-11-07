@@ -6,6 +6,8 @@ import java.io.IOException;*/
 
 import engine.Cmd;
 import engine.Game;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Horatiu Cirstea, Vincent Thomas
@@ -18,7 +20,8 @@ public class PacmanGame implements Game {
 
     private Board board;
     private Pacman pacman;
-
+    private List<Monstres> monstres;
+    
     /**
      * Constructeur du jeu Pacman
      * 
@@ -28,6 +31,13 @@ public class PacmanGame implements Game {
     public PacmanGame(int width, int height) {
         this.board = new Board(width, height);
         this.pacman = new Pacman(width / 2, height / 2);  // Pacman commence au milieu du plateau
+        this.monstres = new ArrayList<>();
+
+        // Initialisation des monstres à des positions de départ
+        monstres.add(new Monstres(1, 1));
+        monstres.add(new Monstres(width - 2, 1));
+        monstres.add(new Monstres(1, height - 2));
+        monstres.add(new Monstres(width - 2, height - 2));
     }
 
     /**
@@ -69,6 +79,11 @@ public class PacmanGame implements Game {
         if (board.canMove(newX, newY)) {
             pacman.move(newX, newY);
         }
+        
+        // Déplacement des monstres
+        for (Monstres monstre : monstres) {
+            monstre.moveMonstre(pacman.getX(), pacman.getY(), board);
+        }
     }
 
     /**
@@ -88,6 +103,10 @@ public class PacmanGame implements Game {
     @Override
     public boolean isFinished() {
         return false;  // Le jeu continue indéfiniment
+    }
+    
+    public List<Monstres> getMonstres() {
+        return monstres;
     }
 
     public int getPacmanX() {

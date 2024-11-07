@@ -119,4 +119,12 @@ public class Board {
 	public boolean canMove(int x, int y) {
 		return this.board[y][x] != '#';
 	}
+	
+	public int getWidth() {
+		return this.width;
+	}
+	
+	public int getHeight() {
+		return this.height;
+	}
 }

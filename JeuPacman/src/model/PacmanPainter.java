@@ -3,6 +3,7 @@ package model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import engine.GamePainter;
 
@@ -16,7 +17,7 @@ public class PacmanPainter implements GamePainter {
 
 	private PacmanGame game;
 
-	private static final int TILE_SIZE = 30;  // Tamanho de cada "casa" no tabuleiro
+	private static final int TILE_SIZE = 30;
 
 	public PacmanPainter(PacmanGame game) {
 		this.game = game;
@@ -28,24 +29,29 @@ public class PacmanPainter implements GamePainter {
 
 		char[][] board = game.getBoard();
 
-		// Desenhar o tabuleiro
 		for (int y = 0; y < board.length; y++) {
 			for (int x = 0; x < board[y].length; x++) {
 				if (board[y][x] == '#') {
-					crayon.setColor(Color.BLUE);  // Muro
+					crayon.setColor(Color.BLUE);
 					crayon.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 				} else {
-					crayon.setColor(Color.BLACK);  // Espaço vazio
+					crayon.setColor(Color.BLACK);
 					crayon.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 				}
 			}
 		}
 
-		// Desenhar Pacman
 		crayon.setColor(Color.YELLOW);
 		int pacmanX = game.getPacmanX();
 		int pacmanY = game.getPacmanY();
 		crayon.fillOval(pacmanX * TILE_SIZE, pacmanY * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+		
+		
+        List<Monstres> monstres = game.getMonstres();
+        for (Monstres monstre : monstres) {
+            crayon.setColor(Color.RED);
+            crayon.fillOval(monstre.getX() * TILE_SIZE, monstre.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        }
 	}
 
 	@Override
