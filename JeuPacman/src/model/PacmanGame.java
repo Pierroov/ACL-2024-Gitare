@@ -52,14 +52,14 @@ public class PacmanGame implements Game {
 
         switch (commande) {
         case LEFT:
-        	if(newX ==0 && newY == 10)
+        	if(newX ==0 && newY == 9)
         	{
-        		newX = 26;
+        		newX = 18;
         	}
         	else {newX--;}
             break;
         case RIGHT:
-        	if(newX ==26 && newY == 10)
+        	if(newX ==18 && newY == 9)
         	{
         		newX = 0;
         	}

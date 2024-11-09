@@ -33,69 +33,36 @@ public class Board {
     private char[][] generateBoard(int width, int height) {
     	
    	
-        char[][] board = new char[height][width];
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                if (x == 0 || y == 0 || x == width - 1 || y == height - 1) {
-                    board[y][x] = '#';  // Mur autour du plateau
-                } else {
-                    board[y][x] = ' ';  // Espace vide à l'intérieur
-                }
-            }
-        }
-
-        // Ajouter un labyrinthe interne
-        //TODO: On va changer la façon dont le labyrinthe est créé  
-        for (int i = 1; i<6; i++)
+        char[][] board = new char[height][width];       
+        String[] sboard={"###################",
+        				 "#........#........#",
+        				 "#.##.###.#.###.##.#",
+        				 "#.##.###.#.###.##.#",
+        				 "#.................#",
+        				 "#.####.##.##.####.#",
+        				 "#...#...#.#...#...#",
+        				 "###.#.#.....#.#.###",
+        				 "###.#.###.###.#.###",
+        				 "........#.#........",
+        				 "###.###.#.#.###.###",
+        				 "###.#.........#.###",
+        				 "#...#.#######.#...#",
+        				 "#.#......#......#.#",
+        				 "#.##.###.#.###.##.#",
+        				 "#..#.#.......#.#..#",
+        				 "##.#.#.#####.#.#.##",
+        				 "#....#...#...#....#",
+        				 "#.######.#.######.#",
+        				 "#.................#",
+        				 "###################"};
+        for (int line = 0; line<height; line++)
         {
-        	board[i][width/2] = '#'; // Mur vertical en heut au milieu du plateau
-        }
-        for (int y = 2; y<width-2; y++)
-        {
-        	if (y == 7  || y == 14 || y == width-7 || y == width-14 || y == width/2-1 || y == width/2+1)
+        	for (int col = 0; col<width; col++)
         	{
-        	board[2][y] = ' ';
-        	}
-        
-	        else 
-	        {
-	        	board[2][y] = '#';
-	        }
-        }
-        for (int y = 0; y<width; y++)
-        {
-        	if (y == 3  || y == 10 || y == width-3 || y == width-10 || y == width/2-4 || y == width/2+4)
-        	{
-	        	board[4][y] = ' ';
-	        	board[5][y] = ' ';
-        	}
-        	else
-        	{
-        		board[4][y] = '#';
-	        	board[5][y] = '#';
+        		char c = sboard[line].charAt(col);
+        		board[line][col] = c;
         	}
         }
-        board[10][0] = ' '; board[10][width-1] = ' ';
-        board[9][1] = '#'; board[9][2] = '#';
-        board[11][1] = '#'; board[11][2] = '#';
-        board[9][width-2] = '#'; board[9][width-3] ='#';
-        board[11][width-2] = '#'; board[11][width-3] = '#';
-        board[7][1] = '#'; board[7][2] = '#';
-        board[13][2] = '#'; board[14][2] = '#'; board[15][2] = '#'; board[15][3] = '#';
-        board[7][width-2] = '#'; board[7][width-3] ='#';
-        board[13][width-3] = '#'; board[14][width-3] = '#'; board[15][width-3] = '#'; board[15][width-4] = '#';
-        board[4][10] = '#'; board[5][10] ='#';
-        board[13][8] = '#'; board[13][9] = '#'; board[13][10] = '#'; 
-        board[14][8] = '#'; board[14][9] = '#'; board[14][10] = '#';
-        board[13][width-8] = '#'; board[13][width-9] = '#'; board[13][width-10] = '#'; 
-        board[14][width-8] = '#'; board[14][width-9] = '#'; board[14][width-10] = '#';
-        board[height-3][2] = '#'; board[height-4][2] = '#'; board[height-3][3] = '#';
-        board[height-3][width-3] = '#'; board[height-4][width-3] = '#'; board[height-3][width-4] = '#';
-        board[height-5][4] = '#'; board[height-5][width-5] = '#'; board[height-6][4] = '#'; board[height-6][width-5] = '#';
-        board[height-5][5] = '#'; board[height-5][width-6] = '#';
-        board[height-4][5] = '#'; board[height-4][width-6] = '#';
-        board[height-3][5] = '#'; board[height-3][width-6] = '#';
         return board;
     }
 

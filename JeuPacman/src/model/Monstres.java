@@ -117,16 +117,16 @@ public class Monstres {
             case 0: newY--; break;
             case 2: newY++; break;
             case 1:
-            	if(newX ==26 && newY == 10)
+            	if(newX ==18 && newY == 9)
             	{
             		newX = 0;
             	}
             	else{newX++;}
                 break;
             case 3:
-            	if(newX ==0 && newY == 10)
+            	if(newX ==0 && newY == 9)
             	{
-            		newX = 26;
+            		newX = 18;
             	}
             	else {newX--;}
                 break;
