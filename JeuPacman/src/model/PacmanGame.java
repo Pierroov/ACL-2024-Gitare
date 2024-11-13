@@ -20,7 +20,7 @@ public class PacmanGame implements Game {
 
     private Board board;
     private Pacman pacman;
-    private List<Monstres> monstres;
+    private ArrayList<Monstres> monstres;
     
     /**
      * Constructeur du jeu Pacman
@@ -33,11 +33,10 @@ public class PacmanGame implements Game {
         this.pacman = new Pacman(width / 2, height / 2);  // Pacman commence au milieu du plateau
         this.monstres = new ArrayList<>();
 
-        // Initialisation des monstres à des positions de départ
-        monstres.add(new Monstres(1, 1));
-        monstres.add(new Monstres(width - 2, 1));
-        monstres.add(new Monstres(1, height - 2));
-        monstres.add(new Monstres(width - 2, height - 2));
+        monstres.add(new Monstres(1, 1, 2));
+        monstres.add(new Monstres(width - 2, 1, 2));
+        monstres.add(new Monstres(1, height - 2, 2));
+        monstres.add(new Monstres(width - 2, height - 2, 2));
     }
 
     /**
@@ -102,7 +101,13 @@ public class PacmanGame implements Game {
      */
     @Override
     public boolean isFinished() {
-        return false;  // Le jeu continue indéfiniment
+    	for (Monstres monstre : monstres) {
+    		if(monstre.getX() == pacman.getX() && monstre.getY() == pacman.getY()) {
+    			return true;
+    		}
+        }
+    	
+    	return false;
     }
     
     public List<Monstres> getMonstres() {

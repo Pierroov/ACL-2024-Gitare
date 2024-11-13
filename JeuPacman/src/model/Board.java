@@ -84,8 +84,13 @@ public class Board {
 	 * @return vrai si le mouvement est possible, faux sinon
 	 */
 	public boolean canMove(int x, int y) {
-		return this.board[y][x] != '#';
+	    if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
+	        return false;
+	    }
+
+	    return this.board[y][x] != '#';
 	}
+
 	
 	public int getWidth() {
 		return this.width;
