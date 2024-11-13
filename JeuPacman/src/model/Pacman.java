@@ -10,6 +10,7 @@ public class Pacman {
     
     // Position actuelle de Pacman
     private int x, y;
+    private int score;
 
     /**
      * Constructeur de Pacman
@@ -40,6 +41,9 @@ public class Pacman {
         return this.y;
     }
 
+    public int getscore() {
+    	return this.score;
+    }
     /**
      * Déplace Pacman à la nouvelle position si elle est valide
      * 
@@ -49,5 +53,9 @@ public class Pacman {
     public void move(int newX, int newY) {
         this.x = newX;
         this.y = newY;
+    }
+    
+    public void setscore(int pt) {
+    	this.score+= pt;
     }
 }

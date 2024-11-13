@@ -40,7 +40,7 @@ public class Board {
                 if (x == 0 || y == 0 || x == width - 1 || y == height - 1) {
                     board[y][x] = '#';  // Mur autour du plateau
                 } else {
-                    board[y][x] = ' ';  // Espace vide à l'intérieur
+                    board[y][x] = '.';  // Espace vide à l'intérieur
                 }
             }
         }
@@ -55,7 +55,7 @@ public class Board {
         {
         	if (y == 7  || y == 14 || y == width-7 || y == width-14 || y == width/2-1 || y == width/2+1)
         	{
-        	board[2][y] = ' ';
+        	board[2][y] = '.';
         	}
         
 	        else 
@@ -67,8 +67,8 @@ public class Board {
         {
         	if (y == 3  || y == 10 || y == width-3 || y == width-10 || y == width/2-4 || y == width/2+4)
         	{
-	        	board[4][y] = ' ';
-	        	board[5][y] = ' ';
+	        	board[4][y] = '.';
+	        	board[5][y] = '.';
         	}
         	else
         	{
@@ -76,7 +76,7 @@ public class Board {
 	        	board[5][y] = '#';
         	}
         }
-        board[10][0] = ' '; board[10][width-1] = ' ';
+        board[10][0] = '.'; board[10][width-1] = '.';
         board[9][1] = '#'; board[9][2] = '#';
         board[11][1] = '#'; board[11][2] = '#';
         board[9][width-2] = '#'; board[9][width-3] ='#';
@@ -107,7 +107,10 @@ public class Board {
 	public char[][] getBoard() {
 		return this.board;
 	}
-
+	
+	public void setBoard(int x, int y, char o) {
+		this.board[y][x]=o;
+	}
 	/**
 	 * Vérifie si Pacman peut se déplacer à la position donnée (sans traverser les
 	 * murs)

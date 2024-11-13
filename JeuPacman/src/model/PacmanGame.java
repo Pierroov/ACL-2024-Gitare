@@ -22,6 +22,10 @@ public class PacmanGame implements Game {
     private Pacman pacman;
     private List<Monstres> monstres;
     
+    
+    public Pacman getPacman() {
+        return this.pacman;
+    }
     /**
      * Constructeur du jeu Pacman
      * 
@@ -78,6 +82,14 @@ public class PacmanGame implements Game {
         // Vérifie si Pacman peut se déplacer à la nouvelle position
         if (board.canMove(newX, newY)) {
             pacman.move(newX, newY);
+        }
+        
+        if (board.getBoard()[newY][newX] != '#') {
+            // Si la case contient un point, Pacman le "mange"
+            if (board.getBoard()[newY][newX] == '.') {
+                board.setBoard(newX, newY, ' '); // Remplace le point par un espace vide
+                pacman.setscore(10);
+            }
         }
         
         // Déplacement des monstres

@@ -31,11 +31,14 @@ public class PacmanPainter implements GamePainter {
 
 		for (int y = 0; y < board.length; y++) {
 			for (int x = 0; x < board[y].length; x++) {
+				crayon.setColor(Color.BLACK);
+				crayon.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+				if (board[y][x] == '.') {
+					crayon.setColor(Color.white);
+					crayon.fillOval(x * TILE_SIZE + TILE_SIZE / 4, y * TILE_SIZE + TILE_SIZE / 4, TILE_SIZE / 2, TILE_SIZE / 2);
+				}
 				if (board[y][x] == '#') {
 					crayon.setColor(Color.BLUE);
-					crayon.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-				} else {
-					crayon.setColor(Color.BLACK);
 					crayon.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 				}
 			}
@@ -52,6 +55,10 @@ public class PacmanPainter implements GamePainter {
             crayon.setColor(Color.RED);
             crayon.fillOval(monstre.getX() * TILE_SIZE, monstre.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         }
+        crayon.setPaint(Color.WHITE);  // Définir la couleur du texte
+        Font font = new Font("Arial", Font.PLAIN, 20);  // Créer une nouvelle police
+        crayon.setFont(font);  // Appliquer la police au dessin
+        crayon.drawString("Score: " + game.getPacman().getscore(), 10, 30);
 	}
 
 	@Override
