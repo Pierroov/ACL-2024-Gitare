@@ -74,6 +74,10 @@ public class Board {
 	public char[][] getBoard() {
 		return this.board;
 	}
+	
+	public void setBoard(int x, int y, char o) {
+		this.board[y][x]=o;
+	}
 
 	/**
 	 * Vérifie si Pacman peut se déplacer à la position donnée (sans traverser les

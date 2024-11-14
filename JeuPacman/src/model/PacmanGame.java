@@ -21,7 +21,9 @@ public class PacmanGame implements Game {
     private Board board;
     private Pacman pacman;
     private ArrayList<Monstres> monstres;
-    
+    private Cmd lastCommand; // Stocke la dernière commande pour mouvement continu
+
+
     /**
      * Constructeur du jeu Pacman
      * 
@@ -32,11 +34,17 @@ public class PacmanGame implements Game {
         this.board = new Board(width, height);
         this.pacman = new Pacman(width / 2, height / 2);  // Pacman commence au milieu du plateau
         this.monstres = new ArrayList<>();
+        this.lastCommand = Cmd.IDLE;
+
 
         monstres.add(new Monstres(1, 1, 2));
         monstres.add(new Monstres(width - 2, 1, 2));
         monstres.add(new Monstres(1, height - 2, 2));
         monstres.add(new Monstres(width - 2, height - 2, 2));
+    }
+    
+    public Pacman getPacman() {
+        return this.pacman;
     }
 
     /**
@@ -46,6 +54,12 @@ public class PacmanGame implements Game {
      */
     @Override
     public void evolve(Cmd commande) {
+    	if (commande != Cmd.IDLE) {
+            lastCommand = commande; // Mémorise la dernière commande active
+        } else {
+            commande = lastCommand; // Utilise la dernière commande si aucune nouvelle
+        }
+    	
         int newX = pacman.getX();
         int newY = pacman.getY();
 
@@ -77,6 +91,14 @@ public class PacmanGame implements Game {
         // Vérifie si Pacman peut se déplacer à la nouvelle position
         if (board.canMove(newX, newY)) {
             pacman.move(newX, newY);
+        }
+        
+        if (board.getBoard()[newY][newX] != '#') {
+            // Si la case contient un point, Pacman le "mange"
+            if (board.getBoard()[newY][newX] == '.') {
+                board.setBoard(newX, newY, ' '); // Remplace le point par un espace vide
+                pacman.setScore(10);
+            }
         }
         
         // Déplacement des monstres
