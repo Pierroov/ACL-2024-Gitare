@@ -37,10 +37,10 @@ public class PacmanGame implements Game {
         this.lastCommand = Cmd.IDLE;
 
 
-        monstres.add(new Monstres(1, 1, 2));
+        monstres.add(new Monstres(1, 1, 0));
         monstres.add(new Monstres(width - 2, 1, 2));
-        monstres.add(new Monstres(1, height - 2, 2));
-        monstres.add(new Monstres(width - 2, height - 2, 2));
+        monstres.add(new Monstres(1, height - 2, 1));
+        //monstres.add(new Monstres(width - 2, height - 2, 2));
     }
     
     public Pacman getPacman() {
