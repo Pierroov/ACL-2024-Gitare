@@ -12,4 +12,4 @@ Fonctionnalités Sprint 4 (25/11/24 - 17/12/24)
 		      	      * Guitare : Points bonus (100)
 		      	      * Batterie : PacMan va plus vite
 			      * Saxophone : PacMan peut manger les monstres et les monstres évitent PacMan (apparait par exemple quand un certain score est atteint)
-
+				* Mettre une musique biennnnnn longue
