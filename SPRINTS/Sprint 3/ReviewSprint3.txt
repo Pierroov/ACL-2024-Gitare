@@ -1,7 +1,7 @@
 Review Sprint 3 (15/11/24 - 25/11/24)
 
 
- - 1ère fonctionnalité : Ok, encore un comportement de monstre à changer 
+ - 1ère fonctionnalité : Ok, encore un comportement de monstre à ajouter 
 
 - 2ème fonctionnalité : pas ok, il y a bouton retry mais il ne fonctionne pas. 
 
