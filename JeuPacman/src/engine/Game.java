@@ -20,5 +20,10 @@ public interface Game {
 	 * @return true si et seulement si le jeu est fini
 	 */
 	public boolean isFinished();
+	
+	/**
+	 * @return true si et seulement si le niveau est gagné
+	 */
+	public boolean isWin();
 
 }

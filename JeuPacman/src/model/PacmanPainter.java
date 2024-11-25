@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.List;
+import javax.swing.*;
+import java.awt.*;
 
 import engine.GamePainter;
 
@@ -52,10 +54,19 @@ public class PacmanPainter implements GamePainter {
 	        crayon.fillOval(monstre.getX() * TILE_SIZE, monstre.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 	    }
 	    
-	    crayon.setPaint(Color.WHITE);  // Définir la couleur du texte
-        Font font = new Font("Arial", Font.PLAIN, 20);  // Créer une nouvelle police
+//Dessin du score
+	    
+        Font font = new Font("Arial", Font.PLAIN, 26);  // Créer une nouvelle police
         crayon.setFont(font);  // Appliquer la police au dessin
-        crayon.drawString("Score: " + game.getPacman().getScore(), 10, 30);
+	    Graphics2D g2d = (Graphics2D) crayon;
+	    GradientPaint gradient = new GradientPaint(0, 0, Color.YELLOW, 100, 0, Color.RED, true);
+	    g2d.setPaint(gradient);
+
+	    // Ajout d'un contour
+	    crayon.setPaint(Color.BLACK);
+	    crayon.drawString("Score: " + game.getPacman().getScore(), 12, 32);
+	    crayon.setPaint(gradient);
+	    crayon.drawString("Score: " + game.getPacman().getScore(), 10, 30);
         
         if (game.isFinished()) {
             crayon.setColor(Color.RED); // Choisissez la couleur du texte "Game Over"

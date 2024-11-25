@@ -24,6 +24,7 @@ public class GraphicalInterface  {
 	 */
 	private DrawingPanel panel;
 	private JButton retryButton;
+	private JButton nextButton;
     private JFrame frame;
 	
 	/**
@@ -55,10 +56,26 @@ public class GraphicalInterface  {
             }
         });
 
-        // Ajouter le bouton en bas de l'écran
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(retryButton);
-        f.add(buttonPanel, BorderLayout.SOUTH);
+        // Ajouter le bouton retry en bas de l'écran
+        JPanel rButtonPanel = new JPanel();
+        rButtonPanel.add(retryButton);
+        f.add(rButtonPanel, BorderLayout.SOUTH);
+        
+        nextButton = new JButton("Next Level");
+        retryButton.setEnabled(false); // Désactivé par défaut, car le niveau n'est pas gagné
+        retryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Action pour démarrer le prochain niveau
+                nextLevel();
+            }
+        });
+        
+        // Ajouter le bouton next en bas de l'écran
+        JPanel nButtonPanel = new JPanel();
+        nButtonPanel.add(nextButton);
+        f.add(nButtonPanel, BorderLayout.EAST);
+        
         
 		f.pack();
 		f.setVisible(true);
@@ -77,7 +94,7 @@ public class GraphicalInterface  {
     	if (frame != null) {
             frame.dispose();
         }
-    	PacmanGame game = new PacmanGame(19, 21);
+    	PacmanGame game = new PacmanGame(19, 21, 1);
 		PacmanPainter painter = new PacmanPainter(game);
 		PacmanController controller = new PacmanController();
 
@@ -102,5 +119,33 @@ public class GraphicalInterface  {
 	    public JFrame getFrame() {
 	        return frame;
 	    }
+	    
+	    public void nextLevel() {
+	    	if (frame != null) {
+	            frame.dispose();
+	        }
+	    	PacmanGame game = new PacmanGame(21, 25, 2);
+			PacmanPainter painter = new PacmanPainter(game);
+			PacmanController controller = new PacmanController();
+
+			// Iniciar o motor gráfico do jogo
+			GameEngineGraphical engine = new GameEngineGraphical(game, painter, controller);
+			try {
+				engine.run();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }	
+	    
+	    /**
+	     * Afficher ou masquer le bouton Retry selon l'état du jeu
+	     * 
+	     * @param win vrai si le niveau est gagné, sinon faux
+	     */
+	    public void setNextButtonVisible(boolean win) {
+	        nextButton.setEnabled(win);
+	    }
+	    }
 	
-}
+

@@ -18,11 +18,11 @@ import java.util.List;
  */
 public class PacmanGame implements Game {
 
-    private Board board;
+    public Board board;
     private Pacman pacman;
     private ArrayList<Monstres> monstres;
-    private Cmd lastCommand; // Stocke la dernière commande pour mouvement continu
-
+    private Cmd lastCommand; // Stocke la dernière commande pour mouvement continu 
+    public int level;
 
     /**
      * Constructeur du jeu Pacman
@@ -30,11 +30,13 @@ public class PacmanGame implements Game {
      * @param width largeur du plateau
      * @param height hauteur du plateau
      */
-    public PacmanGame(int width, int height) {
-        this.board = new Board(width, height);
+    public PacmanGame(int width, int height, int level) {
+    	this.level = level;
+        this.board = new Board(width, height,level);
         this.pacman = new Pacman(width / 2, height / 2);  // Pacman commence au milieu du plateau
         this.monstres = new ArrayList<>();
         this.lastCommand = Cmd.IDLE;
+        
 
 
         monstres.add(new Monstres(1, 1, 0));
