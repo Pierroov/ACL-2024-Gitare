@@ -1,6 +1,6 @@
 - Plusieurs tâches pas terminées --> il va falloir mettre les bouchées doubles au sprint final
 
-- Toujours pas de diagramme UML --> à faire au sprint 4 à la main (eclipse papyrus)
+- Toujours pas de diagrammes UML classe et séquence --> à faire au sprint 4 à la main (eclipse papyrus)
 
 - Il faut faire la retrospective et la review plus tôt --> Manque d'organisation
 
