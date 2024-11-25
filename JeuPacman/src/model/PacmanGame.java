@@ -104,6 +104,15 @@ public class PacmanGame implements Game {
                 pacman.setScore(10);
             }
         }
+        if (board.getBoard()[newY][newX] == 'G') {
+            board.setBoard(newX, newY, ' '); // Enlève l'item du plateau
+            pacman.setScore(100); // Exemple : bonus de 50 points pour ramasser la guitare
+        }
+        if (board.getBoard()[newY][newX] == 'B') {
+            board.setBoard(newX, newY, ' '); // Enlève l'item du plateau
+            //rajouter pour qu'il change de vitesse
+        }
+
         
         // Déplacement des monstres
         for (Monstres monstre : monstres) {

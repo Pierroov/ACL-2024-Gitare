@@ -4,7 +4,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.List;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+
 
 import engine.GamePainter;
 
@@ -19,9 +25,20 @@ public class PacmanPainter implements GamePainter {
 	private PacmanGame game;
 
 	private static final int TILE_SIZE = 30;
+	private BufferedImage guitarImage;
+	private BufferedImage batterieImage;
+	
 
 	public PacmanPainter(PacmanGame game) {
 		this.game = game;
+		try {
+            guitarImage = ImageIO.read(new File("../../guitare.png")); // Chemin de l'image
+            batterieImage=ImageIO.read(new File("../../batterie.png"));
+            		} 
+		catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Erreur : Impossible de charger l'image de la guitare.");
+        }
 	}
 
 	@Override
@@ -41,7 +58,17 @@ public class PacmanPainter implements GamePainter {
 					crayon.setColor(Color.BLUE);
 					crayon.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 				}
-			}
+				if (board[y][x] == 'G') {
+				    if (guitarImage != null) {
+				        crayon.drawImage(guitarImage, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+				    }
+				}
+				if (board[y][x] == 'B') {
+					 if (batterieImage != null) {
+					     crayon.drawImage(batterieImage, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+					    }   	    
+				}
+			
 		}
 
 		crayon.setColor(Color.YELLOW);
@@ -76,7 +103,7 @@ public class PacmanPainter implements GamePainter {
             int yPos = im.getHeight() / 2;
             crayon.drawString(message, xPos, yPos); 
         }
-	}
+	}}
 
 	@Override
 	public int getWidth() {

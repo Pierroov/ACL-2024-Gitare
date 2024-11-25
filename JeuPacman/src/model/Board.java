@@ -38,7 +38,7 @@ public class Board {
         				 "#........#........#",
         				 "#.##.###.#.###.##.#",
         				 "#.##.###.#.###.##.#",
-        				 "#.................#",
+        				 "#......B..........#",
         				 "#.####.##.##.####.#",
         				 "#...#...#.#...#...#",
         				 "###.#.#.....#.#.###",
@@ -53,7 +53,7 @@ public class Board {
         				 "##.#.#.#####.#.#.##",
         				 "#....#...#...#....#",
         				 "#.######.#.######.#",
-        				 "#.................#",
+        				 "#..............G..#",
         				 "###################"};
         
         for (int line = 0; line<height; line++)
@@ -109,4 +109,14 @@ public class Board {
 	public int getHeight() {
 		return this.height;
 	}
+	
+	public void placeItem(int x, int y, char item) {
+	    if (board[y][x] == 'G') { // Place l'item uniquement sur les cases disponibles
+	        board[y][x] = item;
+	    }
+	    if (board[y][x] == 'B') { // Place l'item uniquement sur les cases disponibles
+	        board[y][x] = item;
+	    }
+	}
+
 }
