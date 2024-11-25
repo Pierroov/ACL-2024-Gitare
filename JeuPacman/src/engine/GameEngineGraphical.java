@@ -1,5 +1,7 @@
 package engine;
 
+import javax.swing.JOptionPane;
+
 /**
  * @author Horatiu Cirstea, Vincent Thomas
  *
@@ -27,6 +29,8 @@ public class GameEngineGraphical {
 	 * l'interface graphique
 	 */
 	private GraphicalInterface gui;
+	
+
 
 	/**
 	 * construit un moteur
@@ -52,8 +56,9 @@ public class GameEngineGraphical {
 	public void run() throws InterruptedException {
 
 		// creation de l'interface graphique
-		this.gui = new GraphicalInterface(this.gamePainter,this.gameController);
-
+		this.gui = new GraphicalInterface(this.gamePainter,this.gameController, game);
+		
+	    
 		// boucle de game
 		while (!this.game.isFinished()) {
 			// demande controle utilisateur
@@ -65,6 +70,12 @@ public class GameEngineGraphical {
 			// met en attente
 			Thread.sleep(100);
 		}
-	}
+		
+		 this.gui.setRetryButtonVisible(true); // Activer le bouton "Retry"
+		 
+		
+		 
+        }
+    }
+	
 
-}

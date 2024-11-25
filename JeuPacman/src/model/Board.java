@@ -55,6 +55,7 @@ public class Board {
         				 "#.######.#.######.#",
         				 "#.................#",
         				 "###################"};
+        
         for (int line = 0; line<height; line++)
         {
         	for (int col = 0; col<width; col++)
@@ -63,6 +64,9 @@ public class Board {
         		board[line][col] = c;
         	}
         }
+
+        
+ 
         return board;
     }
 

@@ -56,6 +56,26 @@ public class PacmanPainter implements GamePainter {
         Font font = new Font("Arial", Font.PLAIN, 20);  // Créer une nouvelle police
         crayon.setFont(font);  // Appliquer la police au dessin
         crayon.drawString("Score: " + game.getPacman().getScore(), 10, 30);
+        
+        if (game.isFinished()) {
+            crayon.setColor(Color.RED); // Choisissez la couleur du texte "Game Over"
+            crayon.setFont(new Font("Arial", Font.BOLD, 40)); // Taille de la police
+            String message = "Game Over";
+            // Calculer la position pour centrer le texte
+            int xPos = (im.getWidth() - crayon.getFontMetrics().stringWidth(message)) / 2;
+            int yPos = im.getHeight() / 2;
+            crayon.drawString(message, xPos, yPos); // Afficher "Game Over"
+        }
+        
+        if (game.isWin()) {
+            crayon.setColor(Color.BLUE); // Choisissez la couleur du texte "Game Over"
+            crayon.setFont(new Font("Arial", Font.BOLD, 40)); // Taille de la police
+            String message = "Bravo vous avez gagné";
+            // Calculer la position pour centrer le texte
+            int xPos = (im.getWidth() - crayon.getFontMetrics().stringWidth(message)) / 2;
+            int yPos = im.getHeight() / 2;
+            crayon.drawString(message, xPos, yPos); 
+        }
 	}
 
 	@Override

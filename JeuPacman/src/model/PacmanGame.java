@@ -40,7 +40,7 @@ public class PacmanGame implements Game {
         monstres.add(new Monstres(1, 1, 0));
         monstres.add(new Monstres(width - 2, 1, 2));
         monstres.add(new Monstres(1, height - 2, 1));
-        //monstres.add(new Monstres(width - 2, height - 2, 2));
+        monstres.add(new Monstres(width - 2, height - 2, 2));
     }
     
     public Pacman getPacman() {
@@ -54,6 +54,10 @@ public class PacmanGame implements Game {
      */
     @Override
     public void evolve(Cmd commande) {
+    	if (isWin()) {
+            return;  // Si le jeu est terminé, on ne fait rien et on ignore les commandes
+        }
+    	
     	if (commande != Cmd.IDLE) {
             lastCommand = commande; // Mémorise la dernière commande active
         } else {
@@ -132,6 +136,17 @@ public class PacmanGame implements Game {
     	return false;
     }
     
+    public boolean isWin() {
+    	for (int y = 0; y < board.getBoard().length; y++) {
+            for (int x = 0; x < board.getBoard()[y].length; x++) {
+                if (board.getBoard()[y][x] == '.') {
+                    return false; // Il reste des points à manger
+                }
+            }
+    }
+    	return true;
+    }
+    
     public List<Monstres> getMonstres() {
         return monstres;
     }
@@ -142,5 +157,23 @@ public class PacmanGame implements Game {
 
     public int getPacmanY() {
         return pacman.getY();
+    }
+    
+    public void reset() {
+    	int width = 19;
+    	int height = 21;
+    	this.board = new Board(width, height);
+        this.pacman = new Pacman(width / 2, height / 2);  // Pacman commence au milieu du plateau
+        this.monstres = new ArrayList<>();
+        this.lastCommand = Cmd.IDLE;
+
+
+        monstres.add(new Monstres(1, 1, 0));
+        monstres.add(new Monstres(width - 2, 1, 2));
+        monstres.add(new Monstres(1, height - 2, 1));
+        this.pacman.setScore(0);
+
+        // Réinitialiser le tableau du jeu (board)
+          // Initialiser le tableau avec des points et des murs
     }
 }

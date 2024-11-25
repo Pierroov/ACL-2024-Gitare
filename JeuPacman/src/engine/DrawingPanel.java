@@ -80,6 +80,15 @@ public class DrawingPanel extends JPanel {
 		// met a jour l'image a afficher sur le panel
 		this.repaint();
 	}
+	
+	public void reset() {
+	    // Réinitialiser l'image en cours et l'image suivante
+	    this.nextImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+	    this.currentImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+	    // Requête pour redessiner l'affichage
+	    this.repaint();  // Cela redessine immédiatement le jeu avec les nouvelles images
+	}
 
 	/**
 	 * redefinit la methode paint consiste a dessiner l'image en cours
