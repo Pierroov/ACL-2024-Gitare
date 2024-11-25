@@ -1,0 +1,15 @@
+Fonctionnalités Sprint 4 (25/11/24 - 17/12/24)
+
+
+1ere fonctionnalité : "Game over" s'affiche si on perd et bouton pour rejouer -->Léo
+                      * le bouton retry est implanté mais appuyer dessus ne fais pas la bonne chose
+
+2ème fonctionnalité : "Gagné !!" s'affiche si on mange tous les points du plateau actuel et le prochain niveau se lance --> Léo et Pierre
+			              *Créer un niveau 2(Nouveau plateau qui peut être plus grand, les monstres vont plus vites, rendre les monstres plus fort en modifiant leurs zones d'actions (zone autour du PacMan)) 
+                    * si possible créer d'autre niveaux aussi
+
+3ème fonctionnalité : Ajouter d'autres types d'items mangeable sur le plateau par PacMan --> Charlotte
+		      	      * Guitare : Points bonus (100)
+		      	      * Batterie : PacMan va plus vite
+			            * Saxophone : PacMan peut manger les monstres et les monstres évitent PacMan (apparait par exemple quand un certain score est atteint)
+
