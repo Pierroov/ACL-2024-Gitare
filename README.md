@@ -1,3 +1,5 @@
+** HC: il faut supprimer le build du dépôt, seulement les sources doivent être présentes, pas ce qui est généré. **
+
 Comment lancer:
 
 1. Soyez sûr d'avoir les versions Apache Ant(TM) 1.10.15 et Java 22.0.1 installées.
