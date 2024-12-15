@@ -41,7 +41,6 @@ public class PacmanGame implements Game {
         this.monstres = new ArrayList<>();
         this.lastCommand = Cmd.IDLE;
 
-
         monstres.add(new Monstre(1, 1, 0));
         monstres.add(new Monstre(width - 2, 1, 2));
         monstres.add(new Monstre(1, height - 2, 1));
@@ -187,18 +186,11 @@ public class PacmanGame implements Game {
     	this.board = new Board(width, height);
         this.pacman = new Pacman(width / 2, height / 2);  // Pacman commence au milieu du plateau
         this.monstres = new ArrayList<>();
-        this.monstres.add(new Monstres(1, 1, 0));
-        this.monstres.add(new Monstres(width - 2, 1, 2));
-        this.monstres.add(new Monstres(1, height - 2, 1));
-        this.monstres.add(new Monstres(width - 2, height - 2, 2));
+        this.monstres.add(new Monstre(1, 1, 0));
+        this.monstres.add(new Monstre(width - 2, 1, 2));
+        this.monstres.add(new Monstre(1, height - 2, 1));
+        this.monstres.add(new Monstre(width - 2, height - 2, 2));
 
-<<<<<<< HEAD
-
-        monstres.add(new Monstre(1, 1, 0));
-        monstres.add(new Monstre(width - 2, 1, 2));
-        monstres.add(new Monstre(1, height - 2, 1));
-=======
->>>>>>> main
         this.pacman.setScore(0);
         this.lastCommand = Cmd.IDLE;
 
