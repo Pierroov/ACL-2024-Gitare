@@ -72,8 +72,11 @@ public class GameEngineGraphical {
 		}
 		
 		 this.gui.setRetryButtonVisible(true); // Activer le bouton "Retry"
-		 
-		
+		 while (this.game.isFinished()) {
+		 Thread.sleep(100);  // Pause pour éviter une boucle trop rapide
+		    }
+		 this.gui.setRetryButtonVisible(false);
+		 run();
 		 
         }
     }

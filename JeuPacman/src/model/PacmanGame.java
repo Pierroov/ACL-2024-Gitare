@@ -6,8 +6,13 @@ import java.io.IOException;*/
 
 import engine.Cmd;
 import engine.Game;
+
+import javax.swing.Timer;  // Importation de la classe Timer
+import java.awt.event.ActionEvent;  // Importation de la classe ActionEvent
+import java.awt.event.ActionListener;  // Importation de la classe ActionListener
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * @author Horatiu Cirstea, Vincent Thomas
@@ -37,7 +42,7 @@ public class PacmanGame implements Game {
         this.lastCommand = Cmd.IDLE;
 
 
-        monstres.add(new Monstres(1, 1, 0));
+        //monstres.add(new Monstres(1, 1, 0));
         monstres.add(new Monstres(width - 2, 1, 2));
         monstres.add(new Monstres(1, height - 2, 1));
         monstres.add(new Monstres(width - 2, height - 2, 2));
@@ -110,7 +115,15 @@ public class PacmanGame implements Game {
         }
         if (board.getBoard()[newY][newX] == 'B') {
             board.setBoard(newX, newY, ' '); // Enlève l'item du plateau
-            //rajouter pour qu'il change de vitesse
+            pacman.setMoveDelay(1);
+            Timer speedResetTimer = new Timer(10000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    pacman.setMoveDelay(0);  // Rétablit la vitesse normale
+                }
+            });
+            speedResetTimer.setRepeats(false);  // Le timer ne se répète pas
+            speedResetTimer.start();
         }
 
         
@@ -174,13 +187,13 @@ public class PacmanGame implements Game {
     	this.board = new Board(width, height);
         this.pacman = new Pacman(width / 2, height / 2);  // Pacman commence au milieu du plateau
         this.monstres = new ArrayList<>();
-        this.lastCommand = Cmd.IDLE;
+        this.monstres.add(new Monstres(1, 1, 0));
+        this.monstres.add(new Monstres(width - 2, 1, 2));
+        this.monstres.add(new Monstres(1, height - 2, 1));
+        this.monstres.add(new Monstres(width - 2, height - 2, 2));
 
-
-        monstres.add(new Monstres(1, 1, 0));
-        monstres.add(new Monstres(width - 2, 1, 2));
-        monstres.add(new Monstres(1, height - 2, 1));
         this.pacman.setScore(0);
+        this.lastCommand = Cmd.IDLE;
 
         // Réinitialiser le tableau du jeu (board)
           // Initialiser le tableau avec des points et des murs

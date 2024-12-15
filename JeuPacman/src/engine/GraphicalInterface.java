@@ -38,6 +38,8 @@ public class GraphicalInterface  {
 		JFrame f=new JFrame("Jeu de Pac-Man");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		this.frame = f;
+		
 		// attacher le panel contenant l'afficheur du game
 		this.panel=new DrawingPanel(gamePainter);
 		f.setContentPane(this.panel);
@@ -51,7 +53,7 @@ public class GraphicalInterface  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Action pour redémarrer le jeu
-                resetGame();
+                resetGame(game, gamePainter, gameController);
             }
         });
 
@@ -73,13 +75,34 @@ public class GraphicalInterface  {
 		this.panel.drawGame();	
 	}
 	
-    public void resetGame() {
+	public void resetGame(Game game, GamePainter painter, GameController controller) {
+		 // Réinitialiser l'état du jeu
+	    if (game instanceof PacmanGame) {
+	        ((PacmanGame) game).reset();  // Réinitialise le plateau et les personnages
+	    }
+
+	    // Redessiner l'écran en utilisant le moteur graphique existant
+	    panel.reset();  // Réinitialise l'image affichée sur le panel
+	    panel.requestFocusInWindow();  // Redirige le focus clavier sur le panneau principal
+	}
+	/*
+    public void resetGame(Game game, GamePainter painter, GameController controller) {
     	if (frame != null) {
             frame.dispose();
         }
-    	PacmanGame game = new PacmanGame(19, 21);
-		PacmanPainter painter = new PacmanPainter(game);
-		PacmanController controller = new PacmanController();
+    	 if (game instanceof PacmanGame) {
+    	        ((PacmanGame) game).reset();
+    	    }
+
+    	    // Désactive le bouton Retry
+    	    setRetryButtonVisible(false);
+
+    	    // Redessine le jeu
+    	    panel.repaint();
+
+    	    // Assure le focus sur le panel pour les entrées clavier
+    	    panel.requestFocus();
+    	
 
 		// Iniciar o motor gráfico do jogo
 		GameEngineGraphical engine = new GameEngineGraphical(game, painter, controller);
@@ -88,8 +111,8 @@ public class GraphicalInterface  {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-    }	
+		}}
+    	
 
 	    /**
 	     * Afficher ou masquer le bouton Retry selon l'état du jeu
