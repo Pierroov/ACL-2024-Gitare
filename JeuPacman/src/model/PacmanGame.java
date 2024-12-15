@@ -44,7 +44,7 @@ public class PacmanGame implements Game {
         monstres.add(new Monstre(1, 1, 0));
         monstres.add(new Monstre(width - 2, 1, 2));
         monstres.add(new Monstre(1, height - 2, 1));
-        monstres.add(new Monstre(width - 2, height - 2, 2));
+        monstres.add(new Monstre(width - 2, height - 2, 3));
     }
     
     public Pacman getPacman() {
@@ -58,6 +58,7 @@ public class PacmanGame implements Game {
      */
     @Override
     public void evolve(Cmd commande) {
+    	int comand = 0;
     	if (isWin()) {
             return;  // Si le jeu est terminé, on ne fait rien et on ignore les commandes
         }
@@ -78,19 +79,23 @@ public class PacmanGame implements Game {
         		newX = 18;
         	}
         	else {newX--;}
-            break;
+            comand = 3;
+        	break;
         case RIGHT:
         	if(newX ==18 && newY == 9)
         	{
         		newX = 0;
         	}
         	else{newX++;}
+            comand = 1;
             break;
         case UP:
             newY--;
+            comand = 0;
             break;
         case DOWN:
             newY++;
+            comand = 2;
             break;
         default:
             break;
@@ -128,7 +133,7 @@ public class PacmanGame implements Game {
         
         // Déplacement des monstres
         for (Monstre monstre : monstres) {
-            monstre.moveMonstre(pacman.getX(), pacman.getY(), board);
+            monstre.moveMonstre(pacman.getX(), pacman.getY(), comand, board);
         }
     }
 
@@ -189,7 +194,7 @@ public class PacmanGame implements Game {
         this.monstres.add(new Monstre(1, 1, 0));
         this.monstres.add(new Monstre(width - 2, 1, 2));
         this.monstres.add(new Monstre(1, height - 2, 1));
-        this.monstres.add(new Monstre(width - 2, height - 2, 2));
+        this.monstres.add(new Monstre(width - 2, height - 2, 3));
 
         this.pacman.setScore(0);
         this.lastCommand = Cmd.IDLE;
