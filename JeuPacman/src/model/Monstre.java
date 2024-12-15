@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Random;
-import java.util.Set;
 import java.awt.Color;
 
 /**
@@ -17,14 +16,12 @@ import java.awt.Color;
  * 
  * Chaque monstre possède une position (x, y), une couleur et un comportement spécifique.
  */
-public class Monstres {
+public class Monstre {
 
     private int x;								// Position actuelle du monstre sur l'axe x.
     private int y;								// Position actuelle du monstre sur l'axe y.
     private int previousX, previousY; 			// Position antérieur
-    private final int distanceThreshold = 10;	// Distance à partir de laquelle le monstre détecte Pacman pour certains comportements.
-    private final int randomMoveCooldown = 3;	// Nombre de mouvements aléatoires à effectuer lorsqu'aucune autre action n'est possible.
-    private int randomMoveStepsRemaining = 0;	// Compteur pour suivre le nombre de mouvements aléatoires restants.
+    private int distanceThreshold = 10;			// Distance à partir de laquelle le monstre détecte Pacman pour certains comportements.
     private int moveDelayCounter;				// Compteur pour introduire un délai entre les mouvements.
     private int lastDirection;					// Direction du dernier mouvement (0 : haut, 1 : droite, 2 : bas, 3 : gauche). 
     private int type;							// Type de comportement du monstre.
@@ -37,7 +34,7 @@ public class Monstres {
      * @param startY La position de départ sur l'axe y.
      * @param type   Le type de comportement du monstre (de 0 à 3).
      */
-    public Monstres(int startX, int startY, int type) {
+    public Monstre(int startX, int startY, int type) {
         this.x = startX;
         this.y = startY;
         this.type = type;
@@ -71,6 +68,12 @@ public class Monstres {
      * @return La couleur du monstre.
      */
     public Color getColor() { return this.color; }
+    
+    /**
+     * Définit la distance distanceThreshold
+     * @param La distance à partir de laquelle le monstre détecte Pacman
+     */
+    public void setDistanceThreshold(int distanceThreshold) { this.distanceThreshold = distanceThreshold; }
 
     /**
      * Déplace le monstre selon son type de comportement.
@@ -128,9 +131,9 @@ public class Monstres {
 
         while (!openSet.isEmpty()) {
             Node current = openSet.poll();
-            String currentKey = current.x + "," + current.y;
+            String currentKey = current.getX() + "," + current.getY();
 
-            if (current.x == pacmanX && current.y == pacmanY) {
+            if (current.getX() == pacmanX && current.getY() == pacmanY) {
                 moveAlongPath(current);
                 return;
             }
@@ -138,15 +141,15 @@ public class Monstres {
             closedSet.add(currentKey);
 
             for (int[] dir : new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}) {
-                int newX = current.x + dir[0];
-                int newY = current.y + dir[1];
+                int newX = current.getX() + dir[0];
+                int newY = current.getY() + dir[1];
                 String neighborKey = newX + "," + newY;
 
                 if (closedSet.contains(neighborKey) || !board.canMove(newX, newY)) {
                     continue;
                 }
 
-                int newGCost = current.gCost + 1;
+                int newGCost = current.getGCost() + 1;
                 int newHCost = calculateHeuristic(newX, newY, pacmanX, pacmanY);
                 Node neighbor = new Node(newX, newY, newGCost, newHCost, current);
 
@@ -176,13 +179,13 @@ public class Monstres {
      */
     private void moveAlongPath(Node target) {
         // Remonter le chemin jusqu'au noeud avant la position actuelle
-        while (target.parent != null && target.parent.parent != null) {
-            target = target.parent;
+        while (target.getParent() != null && target.getParent().getParent() != null) {
+            target = target.getParent();
         }
         
         // Mettre à jour la position du monstre
-        this.x = target.x;
-        this.y = target.y;
+        this.x = target.getX();
+        this.y = target.getY();
     }
     
     /**

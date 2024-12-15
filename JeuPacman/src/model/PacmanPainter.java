@@ -76,7 +76,7 @@ public class PacmanPainter implements GamePainter {
 		crayon.setColor(Color.YELLOW);
 	    crayon.fillOval(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 
-	    for (Monstres monstre : game.getMonstres()) {
+	    for (Monstre monstre : game.getMonstres()) {
 	        crayon.setColor(monstre.getColor());
 	        crayon.fillOval(monstre.getX() * TILE_SIZE, monstre.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 	    }

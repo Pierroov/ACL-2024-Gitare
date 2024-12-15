@@ -20,7 +20,7 @@ public class PacmanGame implements Game {
 
     private Board board;
     private Pacman pacman;
-    private ArrayList<Monstres> monstres;
+    private ArrayList<Monstre> monstres;
     private Cmd lastCommand; // Stocke la dernière commande pour mouvement continu
 
 
@@ -37,10 +37,10 @@ public class PacmanGame implements Game {
         this.lastCommand = Cmd.IDLE;
 
 
-        monstres.add(new Monstres(1, 1, 0));
-        monstres.add(new Monstres(width - 2, 1, 2));
-        monstres.add(new Monstres(1, height - 2, 1));
-        monstres.add(new Monstres(width - 2, height - 2, 2));
+        monstres.add(new Monstre(1, 1, 0));
+        monstres.add(new Monstre(width - 2, 1, 2));
+        monstres.add(new Monstre(1, height - 2, 1));
+        monstres.add(new Monstre(width - 2, height - 2, 2));
     }
     
     public Pacman getPacman() {
@@ -115,7 +115,7 @@ public class PacmanGame implements Game {
 
         
         // Déplacement des monstres
-        for (Monstres monstre : monstres) {
+        for (Monstre monstre : monstres) {
             monstre.moveMonstre(pacman.getX(), pacman.getY(), board);
         }
     }
@@ -136,7 +136,7 @@ public class PacmanGame implements Game {
      */
     @Override
     public boolean isFinished() {
-    	for (Monstres monstre : monstres) {
+    	for (Monstre monstre : monstres) {
     		if(monstre.getX() == pacman.getX() && monstre.getY() == pacman.getY()) {
     			return true;
     		}
@@ -156,7 +156,7 @@ public class PacmanGame implements Game {
     	return true;
     }
     
-    public List<Monstres> getMonstres() {
+    public List<Monstre> getMonstres() {
         return monstres;
     }
 
@@ -177,9 +177,9 @@ public class PacmanGame implements Game {
         this.lastCommand = Cmd.IDLE;
 
 
-        monstres.add(new Monstres(1, 1, 0));
-        monstres.add(new Monstres(width - 2, 1, 2));
-        monstres.add(new Monstres(1, height - 2, 1));
+        monstres.add(new Monstre(1, 1, 0));
+        monstres.add(new Monstre(width - 2, 1, 2));
+        monstres.add(new Monstre(1, height - 2, 1));
         this.pacman.setScore(0);
 
         // Réinitialiser le tableau du jeu (board)
