@@ -8,9 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
-import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
 
 
@@ -29,6 +27,8 @@ public class PacmanPainter implements GamePainter {
 	private static final int TILE_SIZE = 30;
 	private BufferedImage guitarImage;
 	private BufferedImage batterieImage;
+	private BufferedImage pacmanImage;
+//	private BufferedImage monstreImage;
 	
 
 	public PacmanPainter(PacmanGame game) {
@@ -36,6 +36,8 @@ public class PacmanPainter implements GamePainter {
 		try {
             guitarImage = ImageIO.read(new File("../../guitare.png")); // Chemin de l'image
             batterieImage=ImageIO.read(new File("../../batterie.png"));
+            pacmanImage=ImageIO.read(new File("../../pacman.jpg"));
+           // monstreImage=ImageIO.read(new File("../../monstre.png"));
             		} 
 		catch (IOException e) {
             e.printStackTrace();
@@ -73,8 +75,9 @@ public class PacmanPainter implements GamePainter {
 			
 		}
 
-		crayon.setColor(Color.YELLOW);
-	    crayon.fillOval(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+		//crayon.setColor(Color.YELLOW);
+	    //crayon.fillOval(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+	    crayon.drawImage(pacmanImage, game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
 
 	    for (Monstres monstre : game.getMonstres()) {
 	        crayon.setColor(monstre.getColor());
