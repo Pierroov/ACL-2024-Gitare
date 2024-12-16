@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Random;
-import java.util.Set;
 import java.awt.Color;
 
 /**
@@ -17,14 +16,12 @@ import java.awt.Color;
  * 
  * Chaque monstre possède une position (x, y), une couleur et un comportement spécifique.
  */
-public class Monstres {
+public class Monstre {
 
     private int x;								// Position actuelle du monstre sur l'axe x.
     private int y;								// Position actuelle du monstre sur l'axe y.
     private int previousX, previousY; 			// Position antérieur
-    private final int distanceThreshold = 10;	// Distance à partir de laquelle le monstre détecte Pacman pour certains comportements.
-    private final int randomMoveCooldown = 3;	// Nombre de mouvements aléatoires à effectuer lorsqu'aucune autre action n'est possible.
-    private int randomMoveStepsRemaining = 0;	// Compteur pour suivre le nombre de mouvements aléatoires restants.
+    private int distanceThreshold = 10;			// Distance à partir de laquelle le monstre détecte Pacman pour certains comportements.
     private int moveDelayCounter;				// Compteur pour introduire un délai entre les mouvements.
     private int lastDirection;					// Direction du dernier mouvement (0 : haut, 1 : droite, 2 : bas, 3 : gauche). 
     private int type;							// Type de comportement du monstre.
@@ -37,7 +34,7 @@ public class Monstres {
      * @param startY La position de départ sur l'axe y.
      * @param type   Le type de comportement du monstre (de 0 à 3).
      */
-    public Monstres(int startX, int startY, int type) {
+    public Monstre(int startX, int startY, int type) {
         this.x = startX;
         this.y = startY;
         this.type = type;
@@ -71,6 +68,12 @@ public class Monstres {
      * @return La couleur du monstre.
      */
     public Color getColor() { return this.color; }
+    
+    /**
+     * Définit la distance distanceThreshold
+     * @param La distance à partir de laquelle le monstre détecte Pacman
+     */
+    public void setDistanceThreshold(int distanceThreshold) { this.distanceThreshold = distanceThreshold; }
 
     /**
      * Déplace le monstre selon son type de comportement.
@@ -79,7 +82,7 @@ public class Monstres {
      * @param pacmanY La position y actuelle de Pacman.
      * @param board   La représentation du plateau de jeu.
      */
-    public void moveMonstre(int pacmanX, int pacmanY, Board board) {
+    public void moveMonstre(int pacmanX, int pacmanY, int comand, Board board) {
         // Si un délai est actif, le monstre attend avant de bouger.
         if (moveDelayCounter > 0) {
             moveDelayCounter--;
@@ -98,7 +101,7 @@ public class Monstres {
                 autonomousMove(board); 					// Se déplace de manière autonome.
                 break;
             case 3:
-                patrol(board); 							// Patrouille dans une zone définie.
+                patrol(pacmanX,pacmanY,comand,board); 							// Patrouille dans une zone définie.
                 break;
         }
 
@@ -128,9 +131,9 @@ public class Monstres {
 
         while (!openSet.isEmpty()) {
             Node current = openSet.poll();
-            String currentKey = current.x + "," + current.y;
+            String currentKey = current.getX() + "," + current.getY();
 
-            if (current.x == pacmanX && current.y == pacmanY) {
+            if (current.getX() == pacmanX && current.getY() == pacmanY) {
                 moveAlongPath(current);
                 return;
             }
@@ -138,15 +141,15 @@ public class Monstres {
             closedSet.add(currentKey);
 
             for (int[] dir : new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}) {
-                int newX = current.x + dir[0];
-                int newY = current.y + dir[1];
+                int newX = current.getX() + dir[0];
+                int newY = current.getY() + dir[1];
                 String neighborKey = newX + "," + newY;
 
                 if (closedSet.contains(neighborKey) || !board.canMove(newX, newY)) {
                     continue;
                 }
 
-                int newGCost = current.gCost + 1;
+                int newGCost = current.getGCost() + 1;
                 int newHCost = calculateHeuristic(newX, newY, pacmanX, pacmanY);
                 Node neighbor = new Node(newX, newY, newGCost, newHCost, current);
 
@@ -176,13 +179,13 @@ public class Monstres {
      */
     private void moveAlongPath(Node target) {
         // Remonter le chemin jusqu'au noeud avant la position actuelle
-        while (target.parent != null && target.parent.parent != null) {
-            target = target.parent;
+        while (target.getParent() != null && target.getParent().getParent() != null) {
+            target = target.getParent();
         }
         
         // Mettre à jour la position du monstre
-        this.x = target.x;
-        this.y = target.y;
+        this.x = target.getX();
+        this.y = target.getY();
     }
     
     /**
@@ -311,22 +314,68 @@ public class Monstres {
         }
     }
 
-    // TODO: Patrouiller dans une zone définie.
-    private void patrol(Board board) {
-        Random rand = new Random();
-        int[] directions = {-1, 0, 1};
-        
-        int dx = directions[rand.nextInt(3)];
-        int dy = directions[rand.nextInt(3)];
+    /**
+     * Méthode de patrouille où le monstre essaie de prévoir la position future de Pacman
+     * et de l'encadrer tout en patrouillant dans une zone limitée.
+     * 
+     * @param board Plateau de jeu contenant les murs et les chemins.
+     */
+    private void patrol(int pacmanX, int pacmanY,int pacmanDirection, Board board) {
+        // Prédire la position future de Pacman en fonction de sa direction
+        int predictedX = pacmanX;
+        int predictedY = pacmanY;
 
-        int newX = this.x + dx;
-        int newY = this.y + dy;
-
-        if (board.canMove(newX, newY)) {
-            this.x = newX;
-            this.y = newY;
+        switch (pacmanDirection) {
+            case 0: predictedY--; break; // Haut
+            case 1: predictedX++; break; // Droite
+            case 2: predictedY++; break; // Bas
+            case 3: predictedX--; break; // Gauche
         }
+
+        // Limite la prédiction aux bordures du plateau
+        if (!board.canMove(predictedX, predictedY)) {
+            predictedX = pacmanX;
+            predictedY = pacmanY;
+        }
+
+        // Cherche à se rapprocher de la position prédite tout en évitant les murs
+        PriorityQueue<Node> openSet = new PriorityQueue<>();
+        HashSet<String> closedSet = new HashSet<>();
+
+        openSet.add(new Node(this.x, this.y, 0, calculateHeuristic(this.x, this.y, predictedX, predictedY), null));
+
+        while (!openSet.isEmpty()) {
+            Node current = openSet.poll();
+            String currentKey = current.getX() + "," + current.getY();
+
+            if (current.getX() == predictedX && current.getY() == predictedY) {
+                moveAlongPath(current);
+                return;
+            }
+
+            closedSet.add(currentKey);
+
+            for (int[] dir : new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}) {
+                int newX = current.getX() + dir[0];
+                int newY = current.getY() + dir[1];
+                String neighborKey = newX + "," + newY;
+
+                if (closedSet.contains(neighborKey) || !board.canMove(newX, newY)) {
+                    continue;
+                }
+
+                int newGCost = current.getGCost() + 1;
+                int newHCost = calculateHeuristic(newX, newY, predictedX, predictedY);
+                Node neighbor = new Node(newX, newY, newGCost, newHCost, current);
+
+                openSet.add(neighbor);
+            }
+        }
+
+        // Si aucune position optimale n'est trouvée, effectuer un mouvement autonome
+        autonomousMove(board);
     }
+
 
     /**
      * Met à jour les coordonnées du monstre en fonction de la direction choisie. 

@@ -24,6 +24,7 @@ public class GraphicalInterface  {
 	 */
 	private DrawingPanel panel;
 	private JButton retryButton;
+	private JButton nextButton;
     private JFrame frame;
 	
 	/**
@@ -66,6 +67,28 @@ public class GraphicalInterface  {
 		f.setVisible(true);
 		f.getContentPane().setFocusable(true);
 		f.getContentPane().requestFocus();
+		
+		
+		//Configuration bouton Next Level
+		nextButton = new JButton("Next");
+		nextButton.setEnabled(false); // Désactivé par défaut, car la partie n'est pas terminée
+		nextButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Action pour redémarrer le jeu
+                nextGame(game, gamePainter, gameController);
+            }
+        });
+
+        // Ajouter le bouton en bas de l'écran
+        JPanel buttonPanelNext = new JPanel();
+        buttonPanelNext.add(nextButton);
+        f.add(buttonPanelNext, BorderLayout.SOUTH);
+        
+		f.pack();
+		f.setVisible(true);
+		f.getContentPane().setFocusable(true);
+		f.getContentPane().requestFocus();
 	}
 	
 	/**
@@ -85,6 +108,17 @@ public class GraphicalInterface  {
 	    panel.reset();  // Réinitialise l'image affichée sur le panel
 	    panel.requestFocusInWindow();  // Redirige le focus clavier sur le panneau principal
 	}
+	
+	public void nextGame(Game game, GamePainter painter, GameController controller) {
+    	if (game instanceof PacmanGame) {
+	        ((PacmanGame) game).next();  // Réinitialise le plateau et les personnages
+	    }
+
+	    // Redessiner l'écran en utilisant le moteur graphique existant
+	    panel.reset();  // Réinitialise l'image affichée sur le panel
+	    panel.requestFocusInWindow();  // Redirige le focus clavier sur le panneau principal
+    }
+
 	/*
     public void resetGame(Game game, GamePainter painter, GameController controller) {
     	if (frame != null) {
@@ -122,6 +156,11 @@ public class GraphicalInterface  {
 	    public void setRetryButtonVisible(boolean gameOver) {
 	        retryButton.setEnabled(gameOver);
 	    }
+	    
+	    public void setNextButtonVisible(boolean gameOver) {
+	        nextButton.setEnabled(gameOver);
+	    }
+
 	    public JFrame getFrame() {
 	        return frame;
 	    }

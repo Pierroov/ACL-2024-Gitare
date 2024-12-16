@@ -79,7 +79,7 @@ public class PacmanPainter implements GamePainter {
 	    //crayon.fillOval(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 	    crayon.drawImage(pacmanImage, game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
 
-	    for (Monstres monstre : game.getMonstres()) {
+	    for (Monstre monstre : game.getMonstres()) {
 	        crayon.setColor(monstre.getColor());
 	        crayon.fillOval(monstre.getX() * TILE_SIZE, monstre.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 	    }
@@ -92,9 +92,15 @@ public class PacmanPainter implements GamePainter {
 
         // Ajout d'un contour
         crayon.setPaint(Color.BLACK);
-        crayon.drawString("Score: " + game.getPacman().getScore(), 12, 32);
+        crayon.drawString("Score: " + game.getPacman().getScore(), 12, 28);
         crayon.setPaint(gradient);
-        crayon.drawString("Score: " + game.getPacman().getScore(), 10, 30);
+        crayon.drawString("Score: " + game.getPacman().getScore(), 10, 26);
+        
+        crayon.setPaint(Color.BLACK);
+        crayon.drawString("Record: " + game.getPacman().getRecord(), 402, 28);
+        crayon.setPaint(gradient);
+        crayon.drawString("Record: " + game.getPacman().getRecord(), 400, 26);
+        
         
         if (game.isFinished()) {
             crayon.setColor(Color.RED); // Choisissez la couleur du texte "Game Over"
@@ -107,7 +113,7 @@ public class PacmanPainter implements GamePainter {
         }
         
         if (game.isWin()) {
-            crayon.setColor(Color.BLUE); // Choisissez la couleur du texte "Game Over"
+            crayon.setColor(Color.RED); // Choisissez la couleur du texte "Game Over"
             crayon.setFont(new Font("Arial", Font.BOLD, 40)); // Taille de la police
             String message = "Bravo vous avez gagné";
             // Calculer la position pour centrer le texte

@@ -25,7 +25,7 @@ public class PacmanGame implements Game {
 
     private Board board;
     private Pacman pacman;
-    private ArrayList<Monstres> monstres;
+    private ArrayList<Monstre> monstres;
     private Cmd lastCommand; // Stocke la dernière commande pour mouvement continu
 
 
@@ -41,11 +41,10 @@ public class PacmanGame implements Game {
         this.monstres = new ArrayList<>();
         this.lastCommand = Cmd.IDLE;
 
-
-        //monstres.add(new Monstres(1, 1, 0));
-        monstres.add(new Monstres(width - 2, 1, 2));
-        monstres.add(new Monstres(1, height - 2, 1));
-        monstres.add(new Monstres(width - 2, height - 2, 2));
+        monstres.add(new Monstre(1, 1, 0));
+        monstres.add(new Monstre(width - 2, 1, 2));
+        monstres.add(new Monstre(1, height - 2, 1));
+        monstres.add(new Monstre(width - 2, height - 2, 3));
     }
     
     public Pacman getPacman() {
@@ -59,6 +58,7 @@ public class PacmanGame implements Game {
      */
     @Override
     public void evolve(Cmd commande) {
+    	int comand = 0;
     	if (isWin()) {
             return;  // Si le jeu est terminé, on ne fait rien et on ignore les commandes
         }
@@ -79,19 +79,23 @@ public class PacmanGame implements Game {
         		newX = 18;
         	}
         	else {newX--;}
-            break;
+            comand = 3;
+        	break;
         case RIGHT:
         	if(newX ==18 && newY == 9)
         	{
         		newX = 0;
         	}
         	else{newX++;}
+            comand = 1;
             break;
         case UP:
             newY--;
+            comand = 0;
             break;
         case DOWN:
             newY++;
+            comand = 2;
             break;
         default:
             break;
@@ -128,8 +132,8 @@ public class PacmanGame implements Game {
 
         
         // Déplacement des monstres
-        for (Monstres monstre : monstres) {
-            monstre.moveMonstre(pacman.getX(), pacman.getY(), board);
+        for (Monstre monstre : monstres) {
+            monstre.moveMonstre(pacman.getX(), pacman.getY(), comand, board);
         }
     }
 
@@ -149,7 +153,7 @@ public class PacmanGame implements Game {
      */
     @Override
     public boolean isFinished() {
-    	for (Monstres monstre : monstres) {
+    	for (Monstre monstre : monstres) {
     		if(monstre.getX() == pacman.getX() && monstre.getY() == pacman.getY()) {
     			return true;
     		}
@@ -169,7 +173,7 @@ public class PacmanGame implements Game {
     	return true;
     }
     
-    public List<Monstres> getMonstres() {
+    public List<Monstre> getMonstres() {
         return monstres;
     }
 
@@ -184,18 +188,48 @@ public class PacmanGame implements Game {
     public void reset() {
     	int width = 19;
     	int height = 21;
+    	int recorD;
+    	if (this.pacman.getScore() > this.pacman.getRecord()) {
+    		recorD = this.pacman.getScore();
+    	}
+    	else {
+    		recorD = this.pacman.getRecord();
+    	}
     	this.board = new Board(width, height);
         this.pacman = new Pacman(width / 2, height / 2);  // Pacman commence au milieu du plateau
         this.monstres = new ArrayList<>();
-        this.monstres.add(new Monstres(1, 1, 0));
-        this.monstres.add(new Monstres(width - 2, 1, 2));
-        this.monstres.add(new Monstres(1, height - 2, 1));
-        this.monstres.add(new Monstres(width - 2, height - 2, 2));
-
+        this.monstres.add(new Monstre(1, 1, 0));
+        this.monstres.add(new Monstre(width - 2, 1, 2));
+        this.monstres.add(new Monstre(1, height - 2, 1));
+        this.monstres.add(new Monstre(width - 2, height - 2, 3));
+        this.pacman.setRecord(recorD);
         this.pacman.setScore(0);
         this.lastCommand = Cmd.IDLE;
 
         // Réinitialiser le tableau du jeu (board)
           // Initialiser le tableau avec des points et des murs
     }
+    
+    public void next() {
+    	int width = 19;
+    	int height = 21;
+    	this.board = new Board(width, height);
+    	int scorE = this.pacman.getScore();
+    	int recorD = this.pacman.getRecord();
+    	
+    	this.pacman = new Pacman(width / 2, height / 2);  // Pacman commence au milieu du plateau
+    	this.pacman.setScore(scorE);
+    	this.pacman.setRecord(recorD);
+    	this.monstres = new ArrayList<>();
+        
+        this.monstres.add(new Monstre(1, 1, 0));
+        this.monstres.add(new Monstre(width - 2, 1, 2));
+        this.monstres.add(new Monstre(1, height - 2, 1));
+        this.monstres.add(new Monstre(width - 2, height - 2, 3));
+        
+        
+        //this.pacman.setScore(0);
+        this.lastCommand = Cmd.IDLE;
+    }
+    
 }
