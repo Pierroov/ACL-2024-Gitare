@@ -2,7 +2,7 @@ Review Sprint 4 (26/11/24 - 17/12/2024)
 
 Fonctionnalité 1 : Bouton fonctionne et le jeu se relance
 
-Fonctionnalité 2 : 
+Fonctionnalité 2 : Finalement pas de niveau 2 mais on peut recommencer le niveau et le score continue à s'incrémenter jusqu'à ce qu'on perde.
 
 Fonctionnalité 3 : Les trois éléments apparraissent donc ok. La batterie accélère la vitesse pendant 10 secondes mais 
 ça ne se voit même pas. Le saxo, par contre, apparait sur le plateau au bon moment (score>400 points) mais ne disparait pas
