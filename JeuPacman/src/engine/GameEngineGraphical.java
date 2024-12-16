@@ -60,7 +60,7 @@ public class GameEngineGraphical {
 		
 	    
 		// boucle de game
-		while (!this.game.isFinished()) {
+		while (!this.game.isFinished() && !this.game.isWin()) {
 			// demande controle utilisateur
 			Cmd c = this.gameController.getCommand();
 			// fait evoluer le game
@@ -70,13 +70,22 @@ public class GameEngineGraphical {
 			// met en attente
 			Thread.sleep(100);
 		}
-		
+		if (this.game.isFinished()) {
 		 this.gui.setRetryButtonVisible(true); // Activer le bouton "Retry"
 		 while (this.game.isFinished()) {
 		 Thread.sleep(100);  // Pause pour éviter une boucle trop rapide
 		    }
 		 this.gui.setRetryButtonVisible(false);
 		 run();
+		}
+		if (this.game.isWin()) {
+			this.gui.setNextButtonVisible(true); // Activer le bouton "Next"
+			 while (this.game.isWin()) {
+			 Thread.sleep(100);  // Pause pour éviter une boucle trop rapide
+			    }
+			 this.gui.setNextButtonVisible(false);
+			 run();
+		}
 		 
         }
     }
