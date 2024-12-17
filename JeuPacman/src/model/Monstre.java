@@ -21,7 +21,7 @@ public class Monstre {
     private int x;								// Position actuelle du monstre sur l'axe x.
     private int y;								// Position actuelle du monstre sur l'axe y.
     private int previousX, previousY; 			// Position antérieur
-    private int distanceThreshold = 10;			// Distance à partir de laquelle le monstre détecte Pacman pour certains comportements.
+    public int distanceThreshold = 10;			// Distance à partir de laquelle le monstre détecte Pacman pour certains comportements.
     private int moveDelayCounter;				// Compteur pour introduire un délai entre les mouvements.
     private int lastDirection;					// Direction du dernier mouvement (0 : haut, 1 : droite, 2 : bas, 3 : gauche). 
     private int type;							// Type de comportement du monstre.

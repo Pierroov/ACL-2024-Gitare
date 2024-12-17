@@ -8,7 +8,7 @@ package model;
 public class Board {
 
 	private int width, height;
-	private char[][] board;
+	public char[][] board;
 
 	/**
 	 * Constructeur pour générer le plateau avec les murs extérieurs et un

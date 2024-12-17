@@ -4,7 +4,7 @@ package model;
  * Classe représentant un noeud dans le tableau pour l'algorithme A*.
  * Chaque noeud contient des coordonnées, des coûts associés, et une référence au noeud parent.
  */
-class Node implements Comparable<Node> {
+public class Node implements Comparable<Node> {
     private int x, y; 		// Coordonnées du noeud
     private int gCost; 		// Coût de déplacement depuis le point de départ
     private int hCost; 		// Estimation du coût pour atteindre la destination

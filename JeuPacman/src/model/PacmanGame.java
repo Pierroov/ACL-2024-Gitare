@@ -27,7 +27,7 @@ public class PacmanGame implements Game {
     private Pacman pacman;
     private ArrayList<Monstre> monstres;
     private Cmd lastCommand; // Stocke la dernière commande pour mouvement continu
-
+    private int etat;//1 si la bouche est ouverte et 0 si la bouche est fermée
 
     /**
      * Constructeur du jeu Pacman
@@ -40,6 +40,7 @@ public class PacmanGame implements Game {
         this.pacman = new Pacman(width / 2, height / 2);  // Pacman commence au milieu du plateau
         this.monstres = new ArrayList<>();
         this.lastCommand = Cmd.IDLE;
+        this.etat = 1;
 
         monstres.add(new Monstre(1, 1, 0));
         monstres.add(new Monstre(width - 2, 1, 2));
@@ -62,6 +63,7 @@ public class PacmanGame implements Game {
     	if (isWin()) {
             return;  // Si le jeu est terminé, on ne fait rien et on ignore les commandes
         }
+    
     	
     	if (commande != Cmd.IDLE) {
             lastCommand = commande; // Mémorise la dernière commande active
@@ -71,12 +73,14 @@ public class PacmanGame implements Game {
     	
         int newX = pacman.getX();
         int newY = pacman.getY();
+        this.etat+=1;
 
         switch (commande) {
         case LEFT:
         	if(newX ==0 && newY == 9)
         	{
         		newX = 18;
+        		
         	}
         	else {newX--;}
             comand = 3;
@@ -120,7 +124,7 @@ public class PacmanGame implements Game {
         if (board.getBoard()[newY][newX] == 'B') {
             board.setBoard(newX, newY, ' '); // Enlève l'item du plateau
             pacman.setMoveDelay(1);
-            Timer speedResetTimer = new Timer(10000, new ActionListener() {
+            Timer speedResetTimer = new Timer(1000, new ActionListener() {//500, 1000 avant
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     pacman.setMoveDelay(0);  // Rétablit la vitesse normale
@@ -216,20 +220,30 @@ public class PacmanGame implements Game {
     	this.board = new Board(width, height);
     	int scorE = this.pacman.getScore();
     	int recorD = this.pacman.getRecord();
+    	int leveL = this.pacman.getLevel();
+    	
     	
     	this.pacman = new Pacman(width / 2, height / 2);  // Pacman commence au milieu du plateau
     	this.pacman.setScore(scorE);
     	this.pacman.setRecord(recorD);
+    	this.pacman.setLevel(leveL+1);
     	this.monstres = new ArrayList<>();
         
         this.monstres.add(new Monstre(1, 1, 0));
         this.monstres.add(new Monstre(width - 2, 1, 2));
         this.monstres.add(new Monstre(1, height - 2, 1));
         this.monstres.add(new Monstre(width - 2, height - 2, 3));
+        for (int i =0; i<4 ;i++) {
+        	this.monstres.get(i).setDistanceThreshold(10 + this.pacman.getLevel()*2);//Distance à partir de laquelle le monstre détecte Pacman
+        }
         
-        
-        //this.pacman.setScore(0);
         this.lastCommand = Cmd.IDLE;
     }
+    public Cmd getLastCommand() {
+    	return this.lastCommand;
+    }
     
+    public int getEtat() {
+    	return this.etat;
+    }
 }

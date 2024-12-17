@@ -1,5 +1,5 @@
 package model;
-
+import engine.Cmd;
 import java.awt.Color;
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +29,13 @@ public class PacmanPainter implements GamePainter {
 	private static final int TILE_SIZE = 30;
 	private BufferedImage guitarImage;
 	private BufferedImage batterieImage;
+	private BufferedImage monstreRouge;
+	private BufferedImage monstreOrange;
+	private BufferedImage monstreCyan;
+	private BufferedImage monstreRose;
+	private BufferedImage monstreGris;
+
+
 	
 
 	public PacmanPainter(PacmanGame game) {
@@ -36,6 +43,13 @@ public class PacmanPainter implements GamePainter {
 		try {
             guitarImage = ImageIO.read(new File("../../guitare.png")); // Chemin de l'image
             batterieImage=ImageIO.read(new File("../../batterie.png"));
+            monstreRouge = ImageIO.read(new File("../../monstreRouge.png"));
+            monstreOrange = ImageIO.read(new File("../../monstreOrange.png"));
+            monstreCyan = ImageIO.read(new File("../../monstreCyan.png"));
+            monstreRose = ImageIO.read(new File("../../monstreRose.png"));
+            monstreGris = ImageIO.read(new File("../../monstreGris.png"));
+
+
             		} 
 		catch (IOException e) {
             e.printStackTrace();
@@ -72,13 +86,85 @@ public class PacmanPainter implements GamePainter {
 				}
 			
 		}
-
+/*
 		crayon.setColor(Color.YELLOW);
 	    crayon.fillOval(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-
+*/
+			//Orientation du Pacman
+			if (game.getLastCommand()==Cmd.RIGHT) {
+				if(game.getEtat()%4<=1) {
+				crayon.setColor(Color.YELLOW);
+				// Dessine Pac-Man avec la bouche ouverte en utilisant fillArc
+				crayon.fillArc(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, 45, 270);
+				}
+				else {
+					crayon.setColor(Color.YELLOW);
+				    crayon.fillOval(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+				}
+				}
+				
+				
+			else if (game.getLastCommand()==Cmd.LEFT) {
+				if(game.getEtat()%4<=1) {
+					crayon.setColor(Color.YELLOW);
+					// Dessine Pac-Man avec la bouche ouverte en utilisant fillArc
+					crayon.fillArc(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, 225, 270);
+					}
+					else {
+						crayon.setColor(Color.YELLOW);
+					    crayon.fillOval(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+					}
+			}
+			else if (game.getLastCommand()==Cmd.DOWN) {
+				if(game.getEtat()%4<=1) {
+					crayon.setColor(Color.YELLOW);
+					// Dessine Pac-Man avec la bouche ouverte en utilisant fillArc
+					crayon.fillArc(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, 315, 270);
+					}
+					else {
+						crayon.setColor(Color.YELLOW);
+					    crayon.fillOval(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+					}
+			}
+			else if (game.getLastCommand()==Cmd.UP||game.getLastCommand()==Cmd.IDLE) {
+				if(game.getEtat()%4<=1) {
+					crayon.setColor(Color.YELLOW);
+					// Dessine Pac-Man avec la bouche ouverte en utilisant fillArc
+					crayon.fillArc(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, 135, 270);
+					}
+					else {
+						crayon.setColor(Color.YELLOW);
+					    crayon.fillOval(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+					}
+			}
+			
 	    for (Monstre monstre : game.getMonstres()) {
-	        crayon.setColor(monstre.getColor());
-	        crayon.fillOval(monstre.getX() * TILE_SIZE, monstre.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+	    	if (monstre.getColor()==Color.RED) {
+	    		crayon.drawImage(monstreRouge, monstre.getX() * TILE_SIZE, monstre.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+	    	}
+	    	
+	    	else if (monstre.getColor()==Color.CYAN) {
+	    		crayon.drawImage(monstreCyan, monstre.getX() * TILE_SIZE, monstre.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+
+	    	}
+	    	else if (monstre.getColor()==Color.ORANGE) {
+	    		crayon.drawImage(monstreOrange, monstre.getX() * TILE_SIZE, monstre.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+
+	    	}
+	    	else if (monstre.getColor()==Color.PINK) {
+	    		crayon.drawImage(monstreRose, monstre.getX() * TILE_SIZE, monstre.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+
+	    	}
+	    	else if (monstre.getColor()==Color.GRAY) {
+	    		crayon.drawImage(monstreGris, monstre.getX() * TILE_SIZE, monstre.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+
+	    	}
+	    	
+	    	else {
+	    		crayon.setColor(monstre.getColor());
+		        crayon.fillOval(monstre.getX() * TILE_SIZE, monstre.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+	    	}
+	        
 	    }
 	    
 	    Font font = new Font("Arial", Font.PLAIN, 25);  // Créer une nouvelle police

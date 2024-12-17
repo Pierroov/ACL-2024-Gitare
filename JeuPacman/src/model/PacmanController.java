@@ -17,8 +17,8 @@ public class PacmanController implements GameController {
 	/**
 	 * commande en cours
 	 */
-	private Cmd commandeEnCours;
-	private Cmd lastCommand;
+	public Cmd commandeEnCours;
+	public Cmd lastCommand;
 	
 	/**
 	 * construction du controleur par defaut le controleur n'a pas de commande

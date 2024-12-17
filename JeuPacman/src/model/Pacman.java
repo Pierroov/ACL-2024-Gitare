@@ -9,7 +9,7 @@ package model;
 public class Pacman {
     
     // Position actuelle de Pacman
-    private int x, y, moveDelayCounter, score, moveDelay, record;
+    public int x, y, moveDelayCounter, score, moveDelay, record, level;
 
     /**
      * Constructeur de Pacman
@@ -23,6 +23,7 @@ public class Pacman {
         this.moveDelayCounter=0;
         this.moveDelay=1;
         this.record = 0;
+        this.level = 0;
         
     }
 
@@ -84,6 +85,14 @@ public class Pacman {
     	
     	this.x = newX;
         this.y = newY;
+    }
+    
+    public void setLevel(int k) {
+    	this.level += k;
+    }
+    
+    public int getLevel() {
+    	return this.level;
     }
 
    
