@@ -105,7 +105,6 @@ public class PacmanPainter implements GamePainter {
 			else if (game.getLastCommand()==Cmd.LEFT) {
 				if(game.getEtat()%4<=1) {
 					crayon.setColor(Color.YELLOW);
-					// Dessine Pac-Man avec la bouche ouverte en utilisant fillArc
 					crayon.fillArc(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, 225, 270);
 					}
 					else {
@@ -116,7 +115,6 @@ public class PacmanPainter implements GamePainter {
 			else if (game.getLastCommand()==Cmd.DOWN) {
 				if(game.getEtat()%4<=1) {
 					crayon.setColor(Color.YELLOW);
-					// Dessine Pac-Man avec la bouche ouverte en utilisant fillArc
 					crayon.fillArc(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, 315, 270);
 					}
 					else {
@@ -127,7 +125,6 @@ public class PacmanPainter implements GamePainter {
 			else if (game.getLastCommand()==Cmd.UP||game.getLastCommand()==Cmd.IDLE) {
 				if(game.getEtat()%4<=1) {
 					crayon.setColor(Color.YELLOW);
-					// Dessine Pac-Man avec la bouche ouverte en utilisant fillArc
 					crayon.fillArc(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, 135, 270);
 					}
 					else {

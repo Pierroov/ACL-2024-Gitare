@@ -124,7 +124,7 @@ public class PacmanGame implements Game {
         if (board.getBoard()[newY][newX] == 'B') {
             board.setBoard(newX, newY, ' '); // Enlève l'item du plateau
             pacman.setMoveDelay(1);
-            Timer speedResetTimer = new Timer(1000, new ActionListener() {//500, 1000 avant
+            Timer speedResetTimer = new Timer(1000, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     pacman.setMoveDelay(0);  // Rétablit la vitesse normale
@@ -234,7 +234,8 @@ public class PacmanGame implements Game {
         this.monstres.add(new Monstre(1, height - 2, 1));
         this.monstres.add(new Monstre(width - 2, height - 2, 3));
         for (int i =0; i<4 ;i++) {
-        	this.monstres.get(i).setDistanceThreshold(10 + this.pacman.getLevel()*2);//Distance à partir de laquelle le monstre détecte Pacman
+        	//Distance à partir de laquelle le monstre détecte Pacman augmente en fonction du niveau
+        	this.monstres.get(i).setDistanceThreshold(10 + this.pacman.getLevel()*2);
         }
         
         this.lastCommand = Cmd.IDLE;
