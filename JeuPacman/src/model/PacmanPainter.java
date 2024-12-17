@@ -1,17 +1,18 @@
 package model;
-import engine.Cmd;
 import java.awt.Color;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.Font;
+import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.List;
-import javax.imageio.ImageIO;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 
+import java.util.Random;
+
+
+import engine.Cmd;
 import engine.GamePainter;
 
 /**
@@ -25,8 +26,12 @@ public class PacmanPainter implements GamePainter {
 	private PacmanGame game;
 
 	private static final int TILE_SIZE = 30;
+	private boolean isSaxophonePlaced = false;
+	private int saxophoneX = -1; // Coordonnée X du saxophone
+	private int saxophoneY = -1;
 	private BufferedImage guitarImage;
 	private BufferedImage batterieImage;
+	private BufferedImage saxophoneImage;
 	private BufferedImage monstreRouge;
 	private BufferedImage monstreOrange;
 	private BufferedImage monstreCyan;
@@ -55,6 +60,12 @@ public class PacmanPainter implements GamePainter {
 		catch (IOException e) {
             e.printStackTrace();
             System.out.println("Erreur : Impossible de charger l'image de la guitare.");
+        }
+		try {
+            saxophoneImage = ImageIO.read(new File("../../saxo.png")); // Chemin vers l'image
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Erreur : Impossible de charger l'image du saxophone.");
         }
 	}
 
@@ -85,6 +96,17 @@ public class PacmanPainter implements GamePainter {
 					     crayon.drawImage(batterieImage, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
 					    }   	    
 				}
+				if (board[y][x] == 'S' && saxophoneImage != null) {
+                    crayon.drawImage(saxophoneImage, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+                }
+				if (game.getPacman().getScore() >= 400 && !isSaxophonePlaced) {
+		            placeSaxophone(board); // Placer le saxophone
+		        }
+
+		        // Dessiner le saxophone s'il est placé
+		        if (isSaxophonePlaced && saxophoneImage != null) {
+		            crayon.drawImage(saxophoneImage, saxophoneX * TILE_SIZE, saxophoneY * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+		        }
 			
 		}
 
@@ -211,4 +233,23 @@ public class PacmanPainter implements GamePainter {
 	public int getHeight() {
 		return game.getBoard().length * TILE_SIZE;
 	}
+	private void placeSaxophone(char[][] board) {
+        Random random = new Random();
+        int height = board.length;
+        int width = board[0].length;
+
+        while (true) {
+            int x = random.nextInt(width);
+            int y = random.nextInt(height);
+
+            // Vérifier que la case est un emplacement valide (ex: '.' pour un point)
+            if (board[y][x] == ' ') {
+                saxophoneX = x;
+                saxophoneY = y;
+                board[y][x] = 'S';
+                isSaxophonePlaced = true;
+                break;
+            }
+        }
+    }
 }

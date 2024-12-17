@@ -1,5 +1,8 @@
 package model;
 
+
+import java.util.Random;
+
 /**
  * @author Christoff da Silva
  *
@@ -9,6 +12,7 @@ public class Board {
 
 	private int width, height;
 	public char[][] board;
+	private int saxophoneX = -1, saxophoneY = -1; 
 
 	/**
 	 * Constructeur pour générer le plateau avec les murs extérieurs et un
@@ -70,6 +74,25 @@ public class Board {
         return board;
     }
 
+    
+    
+    public void placeSaxophone() {
+        Random random = new Random();
+        int attempts = 0;
+
+        while (attempts < 300) { // Limiter à 300 essais
+            int x = random.nextInt(width);
+            int y = random.nextInt(height);
+
+            if (board[y][x] == ' ') { // Place uniquement sur un espace vide
+                saxophoneX = x;
+                saxophoneY = y;
+                board[y][x] = 'S'; // S pour Saxophone
+                break;
+            }
+            attempts++;
+        }
+    }
 	/**
 	 * Retourne le plateau
 	 * 

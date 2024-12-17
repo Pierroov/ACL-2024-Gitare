@@ -133,6 +133,10 @@ public class PacmanGame implements Game {
             speedResetTimer.setRepeats(false);  // Le timer ne se répète pas
             speedResetTimer.start();
         }
+        
+        if (board.getBoard()[newY][newX] == 'S') {
+            board.setBoard(newX, newY, ' '); // Enlève l'item du platea
+        }
 
         
         // Déplacement des monstres
