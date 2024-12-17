@@ -27,7 +27,6 @@ public class PacmanPainter implements GamePainter {
 	private static final int TILE_SIZE = 30;
 	private BufferedImage guitarImage;
 	private BufferedImage batterieImage;
-<<<<<<< HEAD
 	private BufferedImage monstreRouge;
 	private BufferedImage monstreOrange;
 	private BufferedImage monstreCyan;
@@ -35,10 +34,7 @@ public class PacmanPainter implements GamePainter {
 	private BufferedImage monstreGris;
 
 
-=======
-	private BufferedImage pacmanImage;
-//	private BufferedImage monstreImage;
->>>>>>> f41c7d1ff9e35505a6fa846105b1f8363373001b
+
 	
 
 	public PacmanPainter(PacmanGame game) {
@@ -46,7 +42,7 @@ public class PacmanPainter implements GamePainter {
 		try {
             guitarImage = ImageIO.read(new File("../../guitare.png")); // Chemin de l'image
             batterieImage=ImageIO.read(new File("../../batterie.png"));
-<<<<<<< HEAD
+
             monstreRouge = ImageIO.read(new File("../../monstreRouge.png"));
             monstreOrange = ImageIO.read(new File("../../monstreOrange.png"));
             monstreCyan = ImageIO.read(new File("../../monstreCyan.png"));
@@ -54,10 +50,7 @@ public class PacmanPainter implements GamePainter {
             monstreGris = ImageIO.read(new File("../../monstreGris.png"));
 
 
-=======
-            pacmanImage=ImageIO.read(new File("../../pacman.jpg"));
-           // monstreImage=ImageIO.read(new File("../../monstre.png"));
->>>>>>> f41c7d1ff9e35505a6fa846105b1f8363373001b
+
             		} 
 		catch (IOException e) {
             e.printStackTrace();
@@ -94,11 +87,7 @@ public class PacmanPainter implements GamePainter {
 				}
 			
 		}
-<<<<<<< HEAD
-/*
-		crayon.setColor(Color.YELLOW);
-	    crayon.fillOval(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-*/
+
 			//Orientation du Pacman
 			if (game.getLastCommand()==Cmd.RIGHT) {
 				if(game.getEtat()%4<=1) {
@@ -147,13 +136,7 @@ public class PacmanPainter implements GamePainter {
 					}
 			}
 			
-=======
 
-		//crayon.setColor(Color.YELLOW);
-	    //crayon.fillOval(game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-	    crayon.drawImage(pacmanImage, game.getPacmanX() * TILE_SIZE, game.getPacmanY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
-
->>>>>>> f41c7d1ff9e35505a6fa846105b1f8363373001b
 	    for (Monstre monstre : game.getMonstres()) {
 	    	if (monstre.getColor()==Color.RED) {
 	    		crayon.drawImage(monstreRouge, monstre.getX() * TILE_SIZE, monstre.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
